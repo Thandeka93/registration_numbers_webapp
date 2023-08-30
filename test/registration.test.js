@@ -2,25 +2,30 @@ import assert from 'assert';
 import SelectTown from '../registration.js'; 
 
 describe('SelectTown', () => {
-  it('should set and get selected town', () => {
-    const townSelector = SelectTown();
-    townSelector.setTown('ExampleTown');
-    const selectedTown = townSelector.getTown();
-    assert.strictEqual(selectedTown, 'ExampleTown');
+    let selectTown;
+  
+    beforeEach(() => {
+      selectTown = SelectTown();
+    });
+  
+    it('should set and get the selected town', () => {
+      selectTown.setTown('Gauteng');
+      assert.strictEqual(selectTown.getTown(), 'Gauteng');
+    });
+  
+    it('should set and get the registration number', () => {
+      selectTown.setTown('CapeTown');
+      selectTown.setRegistration('CA 123-456');
+      assert.strictEqual(selectTown.getRegistration(), 'CA 123-456');
+    });
+  
+    it('should reset registration number and error message', () => {
+      selectTown.setTown('Durban');
+      selectTown.setRegistration('ND 789-012');
+      selectTown.resetRegistration();
+      assert.strictEqual(selectTown.getRegistration(), '');
+      assert.strictEqual(selectTown.getErrorMessage(), '');
+    });
+  
   });
 
-  it('should set and get registration number', () => {
-    const townSelector = SelectTown();
-    townSelector.setRegistration('ABCD123');
-    const registrationNumber = townSelector.getRegistration();
-    assert.strictEqual(registrationNumber, 'ABCD123');
-  });
-
-  it('should reset registration number', () => {
-    const townSelector = SelectTown();
-    townSelector.setRegistration('ABCD123');
-    townSelector.resetRegistration();
-    const registrationNumber = townSelector.getRegistration();
-    assert.strictEqual(registrationNumber, '');
-  });
-});

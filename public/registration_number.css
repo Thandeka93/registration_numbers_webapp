@@ -1,36 +1,42 @@
 body {
   background-color: #C0C0C0;
-  /* font-family: "Roboto", sans-serif; */
+  font-family: "Roboto", sans-serif;
+  font-size: 14.5px;
 }
+
 .registration-display {
-    background-color: #494848;
-    border: 2px solid black;
-    border-radius: 8px;
-    padding: 5px;
-    margin-top: 20px;
-    width: 250px;
-    margin-left: auto;
-    margin-right: auto;
-  } 
-  .container {
-    background: #848482;
-    color: #dad7cd;
-    max-width: 500px;
-    margin: 0 auto; 
-    padding: 20px;
-    margin-top: 50px;
-  
-  }
-  .greeting-widget-box {
-    text-align: center;
-  }
-  .SelectTown{
-    /* width: 150px; */
-    height: 30px; 
-    /* border-radius: 4em; */
-    border-color: black;
+  background-color: #494848;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 5px;
+  margin-top: 20px;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.inputText{
+
+.container {
+  background: #848482;
+  color: #dad7cd;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 50px;
+
+}
+
+.greeting-widget-box {
+  text-align: center;
+}
+
+.SelectTown {
+  /* width: 150px; */
+  height: 30px;
+  /* border-radius: 4em; */
+  border-color: black;
+}
+
+.inputText {
   width: 200px;
   height: 25px;
   /* border-radius: 4em; */
@@ -39,7 +45,8 @@ body {
   cursor: pointer;
   margin-top: 50px;
 }
-.addBtn{
+
+.addBtn {
   width: 100px;
   height: 30px;
   /* border-radius: 4em; */
@@ -47,7 +54,8 @@ body {
   /* background-color: #339952; */
   cursor: pointer;
 }
-.addBtn1{
+
+.addBtn1 {
   width: 115px;
   height: 30px;
   /* border-radius: 4em; */
@@ -55,7 +63,8 @@ body {
   /* background-color: #339952; */
   cursor: pointer;
 }
-.resetBtn{
+
+.resetBtn {
   width: 100px;
   height: 40px;
   margin-top: 10px;

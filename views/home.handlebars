@@ -1,54 +1,65 @@
-{{!-- <!DOCTYPE html>
+{{!--
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration App</title>
-  
+
 </head>
+
 <body> --}}
   <div class="greeting-widget-box">
     <div class="container">
-  <h1>Registration App</h1>
-  <form action="/setTown" method="POST">
-    <label for="town">Select Town:</label>
-    <select name="town" class="SelectTown">
-      <option value="">All</option>
-      <option value="Gauteng">Gauteng</option>
-      <option value="CapeTown">Cape Town</option>
-      <option value="Durban">Durban</option>
-    </select>
-    <button type="submit" class="addBtn">Add Town</button>
-  </form>
-  
-  <form action="/setRegistration" method="POST">
-    <label for="registration" class="inputText">Enter registration number:</label>
-    <input type="text" name="registration" class="inputText">
-    <button type="submit" class="addBtn1">Add Registration</button>
-  </form>
-  
-  {{!-- <form action="/resetRegistration" method="POST">
-    <button type="submit" class="resetBtn">Reset</button>
-  </form> --}}
-  
-  <h2>Selected Town: {{ town }}</h2>
-  {{!-- <h2>Registration Number: {{ registration }}</h2> --}}
+      <h1>Registration App</h1>
+      <p><b>Registration numbers format:</b></p>
+      <ul>
+        Gauteng: KH 12 GP, 
+        Cape Town: CA 123-456, 
+        Durban: ND 678-910 
+      </ul>
+      <form action="/setTown" method="POST">
+        <label for="town">Select Town:</label>
+        <select name="town" class="SelectTown">
+          <option value="">All</option>
+          <option value="Gauteng">Gauteng</option>
+          <option value="CapeTown">Cape Town</option>
+          <option value="Durban">Durban</option>
+        </select>
+        <button type="submit" class="addBtn">Add Town</button>
+      </form>
 
-  {{#if registration}}
-    <div class="registration-display">
-      <h3>Displaying Registration:</h3>
-      <p>{{ registration }}</p>
-    
-  {{/if}}
+      <form action="/setRegistration" method="POST">
+        <label for="registration" class="inputText">Enter registration number:</label>
+        <input type="text" name="registration" class="inputText">
+        <button type="submit" class="addBtn1">Add Registration</button>
+      </form>
 
-  <form action="/resetRegistration" method="POST" onsubmit="return confirm('Are you sure you want to reset?');">
-    <button type="submit" class="resetBtn">Reset</button>
-  </form>
+      {{!-- <form action="/resetRegistration" method="POST">
+        <button type="submit" class="resetBtn">Reset</button>
+      </form> --}}
+
+      <h2>Selected Town: {{ town }}</h2>
+      {{!-- <h2>Registration Number: {{ registration }}</h2> --}}
+
+      {{#if registration}}
+      <div class="registration-display">
+        <h3>Displaying Registration:</h3>
+        <p>{{ registration }}</p>
+
+        {{/if}}
+
+        <form action="/resetRegistration" method="POST" onsubmit="return confirm('Are you sure you want to reset?');">
+          <button type="submit" class="resetBtn">Reset</button>
+        </form>
+      </div>
+
+    </div>
+
   </div>
 
-  </div>
+  {{!--
+</body>
 
-  </div>
-
-{{!-- </body>
 </html> --}}

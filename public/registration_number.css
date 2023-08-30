@@ -27,6 +27,7 @@ body {
 
 .greeting-widget-box {
   text-align: center;
+  
 }
 
 .SelectTown {
@@ -43,7 +44,7 @@ body {
   border-color: black;
   /* background-color: #E5E4E2; */
   cursor: pointer;
-  margin-top: 50px;
+  margin-top: 75px;
 }
 
 .addBtn {
@@ -74,4 +75,7 @@ body {
   border-color: black;
   /* background-color: #c0170b; */
   cursor: pointer;
+}
+.error-message{
+  color: rgb(228, 4, 4);
 }

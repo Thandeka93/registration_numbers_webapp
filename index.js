@@ -33,7 +33,11 @@ app.use(flash());
 
 // Routes
 app.get('/', (req, res) => {
-  res.render('home', { town: selectTown.getTown(), registration: selectTown.getRegistration() });
+  res.render('home', { 
+    town: selectTown.getTown(), 
+    registration: selectTown.getRegistration(),
+    selectTown: selectTown  // Pass selectTown object to the template
+  });
 });
 
 app.get('/reg_number/:registration', (req, res) => {

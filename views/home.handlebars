@@ -1,54 +1,96 @@
 <div class="greeting-widget-box">
   <div class="container">
-    <h1>Registration Number App</h1>
-    <p><b>Registration numbers format:</b></p>
-    <ul>
-      Gauteng: A-Z 12 GP,
-      Cape Town: CA 123-456,
-      Durban: ND 678-910
-    </ul>
-    <form action="/setTown" method="POST">
-      <label for="town">Select Town:</label>
-      <select name="town" class="SelectTown">
-        <option value="">All</option>
-        <option value="Gauteng">Gauteng</option>
-        <option value="CapeTown">Cape Town</option>
-        <option value="Durban">Durban</option>
-      </select>
-      <button type="submit" class="addBtn">Add Town</button>
-    </form>
-
-    <form action="/setRegistration" method="POST">
-      <label for="registration" class="inputText">Enter registration no:</label>
-      <input type="text" name="registration" class="inputText">
-      <button type="submit" class="addBtn1">Add Registration</button>
-    </form>
-
-    {{#if selectTown.getErrorMessage}}
-    <div class="error-message">
-      <p>{{ selectTown.getErrorMessage }}</p>
+    <h1>REGISTRATION NUMBER APP</h1>
+    <div class="reg-format">
+      <span>Format example:</span>
+      <b>CY 222890, CL 224-225, CA 224225, CJ 224 225</b>
     </div>
-    {{/if}}
+    <p class="error-msg">{{messages.error-msg}}</p>
+    <p class="error-text">{{messages.error-text}}</p>
+    <p class="msg">{{messages.msg}}</p>
 
-    {{!-- <form action="/resetRegistration" method="POST">
-      <button type="submit" class="resetBtn">Reset</button>
-    </form> --}}
+    <form action="/reg_numbers" method="POST">
+      <label class="reg-num-label" for="reg-num">
+        Enter Registration No:
+      </label>
+      <div class="input-btn-container">
+        <input class="text-input" type="text" placeholder="reg number" name="input" />
+        <button class="add-btn" type="submit">
+          <div class="btn-container add-btn-container">
+            <ion-icon class="icon add-icon" name="add-circle-outline"></ion-icon>
+            <p>Add</p>
+          </div>
+        </button>
+      </div>
+    </form>
 
-    <h2>Selected Town: {{ town }}</h2>
-    {{!-- <h2>Registration Number: {{ registration }}</h2> --}}
+    <div class="select-filter-clear">
+      <div>
+        <form action="/filter" method="POST">
+          <select name="towns" id="dropdown">
+            <option value="">Select a Town</option>
+            <option value="CA">Cape Town (CA)</option>
+            <option value="CL">Stellenbosch (CL)</option>
+            <option value="CJ">Paarl (CJ)</option>
+            <option value="CY">Bellville (CY)</option>
+          </select>
+          <button class="filter-btn">
+            <div class="btn-container filter-btn-container">
+              <ion-icon class="icon filter-icon" name="filter-outline"></ion-icon>
+              <p>Filter</p>
+            </div>
+          </button>
+        </form>
+      </div>
 
-    {{#if registration}}
-    <div class="registration-display">
-      <h3>Displaying Registration:</h3>
-      <p>{{ registration }}</p>
+      <div>
+        <form action="/reset" method="POST">
+          <button class="clear-btn" type="submit">
+            <div class="btn-container clear-btn-container">
+              <ion-icon class="icon clear-icon" name="trash-outline"></ion-icon>
+              <p>Reset</p>
+            </div>
+          </button>
+        </form>
+      </div>
+    </div>
 
-      {{/if}}
 
-      <form action="/resetRegistration" method="POST" onsubmit="return confirm('Are you sure you want to reset?');">
-        <button type="submit" class="resetBtn">Reset</button>
-      </form>
+    <div class="reg-num-container">
+      {{#each registrations}}
+      <div class="reg-num">{{this.reg_number}}</div>
+      {{/each}}
+    </div>
+
+    <div class="reg-num-container-filtered">
+      {{#each filteredRegNums}}
+      <div class="reg-num-filtered">{{this.reg_numbers}}</div>
+      {{/each}}
     </div>
 
   </div>
-
 </div>
+
+<script>
+
+  const clearBtn = document.querySelector(".clear-btn");
+  const filterBtn = document.querySelector(".filter-btn");
+  const filterContainer = document.querySelector(".reg-num-filtered");
+  const errorMsgEle = document.querySelector(".error-msg");
+  const errorTextEle = document.querySelector(".error-text");
+  const infoTextEle = document.querySelector(".msg");
+
+  function clearFunction(e) {
+    const clearData = window.confirm(
+      "Are you sure you want to reset the application?\nThis will reset the registration numbers."
+    );
+    clearData ? "" : e.preventDefault();
+  }
+  setTimeout(function () {
+    errorMsgEle.innerHTML !== "" ? (errorMsgEle.innerHTML = "") : "";
+    errorTextEle.innerHTML !== "" ? (errorTextEle.innerHTML = "") : "";
+    infoTextEle.innerHTML !== "" ? (infoTextEle.innerHTML = "") : "";
+  }, 2500);
+
+  clearBtn.addEventListener("click", clearFunction);
+</script>

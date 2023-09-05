@@ -26,8 +26,7 @@ export default function RegistrationsRoute(factoryFunc, dbFunc) {
         console.log(err);
       }
     }
-    
-
+  
     async function reset(req, res) {
       try {
         await dbFunc.resetRegistrations();

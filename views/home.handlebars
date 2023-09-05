@@ -3,7 +3,7 @@
     <h1>REGISTRATION NUMBER APP</h1>
     <div class="reg-format">
       <span>Format example:</span>
-      <b>CY 222890, CL 224-225, CA 224225, CJ 224 225</b>
+      CY 222890, CA 224225, CJ 224 225
     </div>
     <p class="error-msg">{{messages.error-msg}}</p>
     <p class="error-text">{{messages.error-text}}</p>
@@ -30,7 +30,6 @@
           <select name="towns" id="dropdown">
             <option value="">Select a Town</option>
             <option value="CA">Cape Town (CA)</option>
-            <option value="CL">Stellenbosch (CL)</option>
             <option value="CJ">Paarl (CJ)</option>
             <option value="CY">Bellville (CY)</option>
           </select>
@@ -82,7 +81,7 @@
 
   function clearFunction(e) {
     const clearData = window.confirm(
-      "Are you sure you want to reset the application?\nThis will reset the registration numbers."
+      "Are you sure you want to reset the application?\nThis will reset all the registration numbers."
     );
     clearData ? "" : e.preventDefault();
   }

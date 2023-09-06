@@ -12,10 +12,21 @@ export default function RegistrationsRoute(factoryFunc, dbFunc) {
     async function registrations(req, res) {
       try {
         let input = req.body.input;
-        await dbFunc.setTown(input);
-        await dbFunc.setLicensePlate(input);
-        req.flash("error-msg", dbFunc.getErrorMessage());
-        req.flash("error-text", factoryFunc.validateLicensePlate(input));
+        
+        // Validate the license plate using your factory function
+        const licensePlateValidationResult = factoryFunc.validateLicensePlate(input);
+    
+        if (licensePlateValidationResult === "Please provide a registration number") {
+          // Display an error message when input is empty
+          req.flash("error-msg", "Please provide a registration number");
+        } else if (licensePlateValidationResult === "Please enter a valid registration number") {
+          // Display an error message when input is not in the correct format
+          req.flash("error-msg", "Invalid town code");
+        } else {
+          // Input is valid, set the town and license plate
+          await dbFunc.setTown(input);
+          await dbFunc.setLicensePlate(input);
+        }
         
         // Fetch the updated list of registration numbers
         const registrations = await dbFunc.getRegistrations();
@@ -26,7 +37,7 @@ export default function RegistrationsRoute(factoryFunc, dbFunc) {
         console.log(err);
       }
     }
-  
+
     async function reset(req, res) {
       try {
         await dbFunc.resetRegistrations();

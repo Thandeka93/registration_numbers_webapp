@@ -8,7 +8,7 @@ export default function LicensePlateValidator() {
       errorMessage = "Please enter a valid registration number";
     }
     if (licensePlate === "") {
-      errorMessage = "Input is empty; please enter a registration number";
+      errorMessage = "Please provide a registration number";
     }
     return errorMessage;
   }

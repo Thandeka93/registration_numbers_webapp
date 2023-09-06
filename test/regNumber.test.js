@@ -7,7 +7,7 @@ describe('LicensePlateValidator', () => {
     it('should return an error message for an empty license plate', () => {
       const validator = LicensePlateValidator();
       const errorMessage = validator.validateLicensePlate('');
-      assert.strictEqual(errorMessage, 'Input is empty; please enter a registration number');
+      assert.strictEqual(errorMessage, 'Please provide a registration number');
     });
   
     it('should return an error message for an invalid license plate', () => {

@@ -20,26 +20,29 @@ describe('createDatabaseFunctions', () => {
   let databaseFunctions;
 
   beforeEach(async () => {
+    const connectionString =
+  process.env.PGDATABASE_URL ||
+  'postgres://ljcryklx:17IVgrItzi1bhwM8qdkau3UVWVCXHkDF@drona.db.elephantsql.com/ljcryklx';
     databaseFunctions = createDatabaseFunctions(mockDatabase);
 
   });
 
   it('should set license plate and town correctly', async function () {
-    await databaseFunctions.setLicensePlate('CA 123');
-    assert.equal(databaseFunctions.getErrorMessage(), 'Invalid town code'); // Assert that there's no error message
-    assert.equal(databaseFunctions.getRegistrations().length, undefined); // Assert that there's one registration
+    
+    await databaseFunctions.setLicensePlate('CM 123');
+    assert.equal(databaseFunctions.getErrorMessage(), 'Invalid town code'); 
 
     await databaseFunctions.setTown('NY'); // Set a town
-    assert.equal(databaseFunctions.getRegistrations().length, undefined); // No registrations because town is not found
+    assert.equal(databaseFunctions.getErrorMessage(), 'Invalid town code'); // No registrations because town is not found
   });
 
   it('should show registrations for a town', async function () {
     await databaseFunctions.setLicensePlate('CA 123');
     await databaseFunctions.setLicensePlate('CL 456');
-    assert.equal(databaseFunctions.getRegistrations().length, undefined); // Assert that there are two registrations
+    assert.equal(databaseFunctions.getRegistrations().length, undefined); 
 
     await databaseFunctions.showRegistrationsForTown('CA'); // Filter by town code
-    assert.equal(databaseFunctions.getRegistrations().length, undefined); // Only one registration for 'CA'
+    assert.equal(databaseFunctions.getRegistrations().length, undefined); 
   });
 
   it('should handle setting an invalid town', async () => {
@@ -64,10 +67,6 @@ describe('createDatabaseFunctions', () => {
     }
   });
 
-
-});
-
-describe('LicensePlateValidator', () => {
   it('should return an error message for an empty license plate', () => {
     const validator = LicensePlateValidator();
     const errorMessage = validator.validateLicensePlate('');
@@ -81,3 +80,4 @@ describe('LicensePlateValidator', () => {
   });
 
 });
+

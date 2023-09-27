@@ -12,7 +12,7 @@ export default function RegistrationsRoute(factoryFunc, dbFunc) {
     async function registrations(req, res) {
       try {
         let input = req.body.input;
-        
+    
         // Validate the license plate using your factory function
         const licensePlateValidationResult = factoryFunc.validateLicensePlate(input);
     
@@ -24,10 +24,16 @@ export default function RegistrationsRoute(factoryFunc, dbFunc) {
           req.flash("error-msg", "Invalid town code");
         } else {
           // Input is valid, set the town and license plate
-          await dbFunc.setTown(input);
-          await dbFunc.setLicensePlate(input);
+          const registrationError = await dbFunc.setLicensePlate(input);
+    
+          if (registrationError === "Registration number already exists") {
+            // Display an error message when the registration number already exists
+            req.flash("error-msg", "Registration number already exists");
+          } else {
+            await dbFunc.setTown(input);
+          }
         }
-        
+    
         // Fetch the updated list of registration numbers
         const registrations = await dbFunc.getRegistrations();
     
@@ -37,6 +43,8 @@ export default function RegistrationsRoute(factoryFunc, dbFunc) {
         console.log(err);
       }
     }
+    
+    
 
     async function reset(req, res) {
       try {

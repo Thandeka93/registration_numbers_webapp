@@ -44,16 +44,21 @@ export default function createDatabaseFunctions(database) {
       } else {
         // Registration number already exists
         errorMessage = "Registration number already exists";
+        // return errorMessage;
       }
+      
   
       registrationTable = await database.manyOrNone("SELECT * FROM reg_numbers");
       isFiltered = false;
     } catch (err) {
       console.error(err);
     }
+    
   
     licensePlate = "";
     townId = "";
+
+    return errorMessage; // Return the error message
   }
   
 

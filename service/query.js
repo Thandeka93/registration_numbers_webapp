@@ -13,28 +13,28 @@ export default function createDatabaseFunctions(database) {
   async function setLicensePlate(input) {
     errorMessage = "";
     licensePlate = input.toUpperCase();
-  
+
     // Extract the town code from the input
     const twoLetterCode = licensePlate.slice(0, 2).toUpperCase();
-  
+
     // Try to find the town in the database
     try {
       townId = await database.oneOrNone(
         "SELECT town_id FROM towns WHERE town_code = $1",
         [twoLetterCode]
       );
-  
+
       if (!townId) {
         // Handle the case where the town code is not found
         errorMessage = "Invalid town code";
         return;
       }
-  
+
       let existingRegistration = await database.oneOrNone(
         "SELECT * FROM reg_numbers WHERE reg_number = $1",
         [licensePlate]
       );
-  
+
       if (!existingRegistration) {
         townForeignKey = townId.town_id;
         await database.none(
@@ -46,21 +46,21 @@ export default function createDatabaseFunctions(database) {
         errorMessage = "Registration number already exists";
         // return errorMessage;
       }
-      
-  
+
+
       registrationTable = await database.manyOrNone("SELECT * FROM reg_numbers");
       isFiltered = false;
     } catch (err) {
       console.error(err);
     }
-    
-  
+
+
     licensePlate = "";
     townId = "";
 
     return errorMessage; // Return the error message
   }
-  
+
 
   async function setTown(input) {
     let twoLetterCode = input.slice(0, 2).toUpperCase();
@@ -110,6 +110,8 @@ export default function createDatabaseFunctions(database) {
             [showFromTownId]
           );
         } else {
+          // Town not found, set an error message
+          // errorMessage = "Cannot filter a town that was not added";
           townRegistrations = []; // Set to an empty array when town is not found
         }
       } else {
@@ -121,8 +123,11 @@ export default function createDatabaseFunctions(database) {
       console.log(err);
     }
     isFiltered = true;
+
+    // return errorMessage;
   }
   
+
 
   async function getRegistrations() {
     if (isFiltered) {
